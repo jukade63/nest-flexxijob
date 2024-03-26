@@ -35,8 +35,9 @@ import dbConfig from 'config/db.config';
     CloudinaryModule, 
     ConfigModule.forRoot({ 
       isGlobal: true,
+      load: [dbConfig],
     }),
-      // load: [dbConfig], 
+      
       // envFilePath: [`.env.${process.env.NODE_ENV}`] }),
     NotificationModule,
     EmailModule,
