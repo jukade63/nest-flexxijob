@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { Repository } from 'typeorm';
@@ -108,8 +108,11 @@ export class JobsService {
 
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} job`;
+  async findOnedByWorkerId(id: number, workerId: number) {
+    if(!id || !workerId) {
+      throw new BadRequestException('job not found')
+    }
+    return await this.jobsRepository.findOne({ where: {id, workers: { id: workerId } } })
   }
 
   async updateJob(id: number, updateJobDto: UpdateJobDto) {
