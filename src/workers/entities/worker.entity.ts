@@ -3,6 +3,7 @@ import { AbstractEntity } from 'src/database/Abstract.entity';
 import { Education } from 'src/education/entities/education.entity';
 import { Experience } from 'src/experience/entities/experience.entity';
 import { Jobs } from 'src/jobs/entities/job.entity';
+import { Ratings } from 'src/ratings/entities/rating.entity';
 import { Skills } from 'src/skills/entities/skill.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Entity, Column, OneToOne, JoinColumn, OneToMany, ManyToMany, } from 'typeorm';
@@ -37,5 +38,8 @@ export class Worker extends AbstractEntity<Worker> {
   
   @ManyToMany(() => Jobs, {onDelete: 'CASCADE'})
   jobs: Jobs[];
+
+  @OneToMany(() => Ratings, (rating) => rating.worker)
+  ratings: Ratings[]
 }
 

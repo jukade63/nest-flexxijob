@@ -38,6 +38,16 @@ export class WorkersService {
 
     return worker;
   }
+
+  async getWorkerByUserId(userId: number): Promise<Worker> {
+    const worker = await this.workerRepository.findOne({
+      where: { user: { id: userId } },
+    });
+    if (!worker) {
+      throw new NotFoundException(`Worker with ID ${userId} not found.`);
+    }
+    return worker;
+  }
  
   update(id: number, updateWorkerDto: UpdateWorkerDto) {
     return `This action updates a #${id} worker`;

@@ -63,7 +63,7 @@ export class JobPost extends AbstractEntity<JobPost> {
   @JoinColumn()
   applications: Applications[];
 
-  @OneToOne(() => Jobs)
+  @OneToOne(() => Jobs, (jobs) => jobs.jobPost, {onDelete: 'CASCADE'})
   @JoinColumn()
   job: Jobs
   

@@ -40,9 +40,10 @@ export class JobsController {
     return this.jobsService.updateJob(jobId, updateJobDto);
   }
 
-  // findOneByWorkerId(@Param('workerId', ParseIntPipe) workerId: number) {
-  //   return this.jobsService.findOnedByWorkerId(id,workerId);
-  // }
+  @Get(':id')
+  findById(@Param('id', ParseIntPipe) id: number) {
+    return this.jobsService.getJobById(id);
+  }
 
 
   @Delete(':id')

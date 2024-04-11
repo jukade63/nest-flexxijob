@@ -22,8 +22,8 @@ export class JobsService {
 
   ) { }
 
-  private async getJobById(id: number) {
-    const job = await this.jobsRepository.findOne({ where: { id } });
+  async getJobById(id: number) {
+    const job = await this.jobsRepository.findOne({ where: { id }, relations:['workers'] });
     if (!job) {
       throw new NotFoundException(`Job with id ${id} not found`);
     }
@@ -108,11 +108,14 @@ export class JobsService {
 
   }
 
-  async findOnedByWorkerId(id: number, workerId: number) {
-    if(!id || !workerId) {
+  async findOnedById(id: number) {
+  
+    const job = await this.jobsRepository.findOne({ where: {id} })
+    if(!job) {
       throw new BadRequestException('job not found')
     }
-    return await this.jobsRepository.findOne({ where: {id, workers: { id: workerId } } })
+    return job
+
   }
 
   async updateJob(id: number, updateJobDto: UpdateJobDto) {
