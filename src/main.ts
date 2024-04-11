@@ -12,8 +12,7 @@ async function bootstrap() {
   app.use(express.json({ limit: '50mb' }));
   const port = app.get(ConfigService).get('PORT') || 3001
   app.useGlobalPipes(new ValidationPipe())
-  // await app.listen(port, () => console.log(`server started on port ${port}`));
-  await app.listen(port, "0.0.0.0"); 
+  await app.listen(port, app.get(ConfigService).get('HOST'), () => console.log(`server started on port ${port}`)); 
   
 }
 bootstrap();
