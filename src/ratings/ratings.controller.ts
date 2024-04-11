@@ -28,10 +28,10 @@ export class RatingsController {
   @UseGuards(AuthGuard)
   async getAllByWorkerId(
     @Request() req,
-    @Query('workerId', ParseIntPipe) workerId?: number
+    @Query('workerId') workerId?: string
   ) {
     if (workerId) {
-      return this.ratingsService.getAllByWorkerId(workerId)
+      return this.ratingsService.getAllByWorkerId(+workerId)
     }
     const userId = req.user.sub
     const worker = await this.workerService.getWorkerByUserId(userId)
