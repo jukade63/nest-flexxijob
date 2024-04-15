@@ -30,7 +30,7 @@ export class JobPostsService {
     const user = await this.userRepository.findOne({ where: { id: sub }, relations: ['business'] })
     if (!user) throw new NotFoundException('user not found')
 
-    const jobPost = await this.jobPostRepository.save({ ...createJobPostDto, business: user.business });
+    const jobPost = await this.jobPostRepository.save({ ...createJobPostDto, business: user.business, status: Status.Approved });
 
     const job = await this.jobsRepository.save({
       jobPost: jobPost,
